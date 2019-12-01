@@ -1,6 +1,8 @@
 require "minitest/autorun"
 require "minitest/pride"
-
+require_relative "../lib/direwolf"
+require_relative "../lib/stark"
+require 'pry'
 class DirewolfTest < Minitest::Test
 
   def test_direwolf_has_a_name
@@ -10,7 +12,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_default_home_is_beyond_the_wall_and_can_have_another_name
-    skip
+
 
     wolf = Direwolf.new('Lady')
 
@@ -19,7 +21,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_default_size_is_massive
-    skip
+
 
     wolf = Direwolf.new('Ghost')
 
@@ -28,7 +30,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_can_have_another_home_or_size
-    skip
+
 
     wolf = Direwolf.new('Shaggydog', "Winterfell", "Smol Pupper")
 
@@ -38,7 +40,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_starks_are_in_winterfell_by_default
-    skip
+
 
     wolf = Direwolf.new('Summer', 'Winterfell')
     stark = Stark.new('Bran')
@@ -48,7 +50,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_starts_off_with_no_Starks_to_protect
-    skip
+
 
     wolf = Direwolf.new('Nymeria')
     stark = Stark.new('Arya')
@@ -60,7 +62,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_protects_stark_kids
-    skip
+
 
     wolf = Direwolf.new('Nymeria', 'Riverlands')
     stark = Stark.new('Arya', 'Riverlands')
@@ -73,7 +75,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_can_only_protect_stark_kids_if_home_and_location_match
-    skip
+
 
     wolf = Direwolf.new('Ghost')
     stark = Stark.new('John', "King's Landing")
@@ -85,7 +87,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_direwolf_can_only_protect_two_starks_at_a_time
-    skip
+
 
     summer_wolf = Direwolf.new('Summer', "Winterfell")
     lady_wolf = Direwolf.new('Lady', "Winterfell")
@@ -109,7 +111,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_starks_start_off_unsafe
-    skip
+
 
     stark = Stark.new('John', "The Wall")
 
@@ -118,7 +120,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_protected_status_changes_once_protected
-    skip
+
 
     wolf = Direwolf.new('Nymeria', "Winterfell")
     arya_stark = Stark.new('Arya')
@@ -133,7 +135,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_hunts_white_walkers
-    skip
+
 
     wolf = Direwolf.new('Nymeria', "Winterfell")
 
@@ -141,7 +143,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_hunts_white_walkers_but_not_if_protecting_starks
-    skip
+
 
     wolf = Direwolf.new('Nymeria', "Winterfell")
     stark = Stark.new('Sansa')
@@ -151,7 +153,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_wolves_can_leave_and_stop_protecting_starks
-    skip
+
 
     summer_wolf = Direwolf.new('Summer', "Winterfell")
     lady_wolf = Direwolf.new('Lady', "Winterfell")
@@ -162,7 +164,6 @@ class DirewolfTest < Minitest::Test
     lady_wolf.protects(sansa_stark)
     summer_wolf.leaves(arya_stark)
 
-
     assert_equal [],  summer_wolf.starks_to_protect
     assert_equal 'Sansa', lady_wolf.starks_to_protect[0].name
     assert_instance_of Array, lady_wolf.starks_to_protect
@@ -170,7 +171,7 @@ class DirewolfTest < Minitest::Test
   end
 
   def test_if_stark_not_protected_when_direwolf_leaves_then_that_stark_is_the_return_value
-    skip
+
 
     summer_wolf = Direwolf.new('Summer', "Winterfell")
     lady_wolf = Direwolf.new('Lady', "Winterfell")
@@ -183,8 +184,8 @@ class DirewolfTest < Minitest::Test
     summer_wolf.leaves(arya_stark)
 
     expected = lady_wolf.leaves(rickon_stark)
-
-    assert_instance_of expected, Stark
+#binding.pry
+    assert_instance_of  Stark, expected
     assert_equal expected.name, 'Rickon'
   end
 end
